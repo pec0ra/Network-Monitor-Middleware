@@ -188,34 +188,36 @@ int main(int argc, char** argv)
 
 	fp=fopen("arp.txt","r");
 
-	while(fgets(str,1024,fp))
-	{
-		char delims[] = ".";
-		char delims2[] = ":";
-		char *result = NULL;
-		int ip=0;
-		long mac=0;
-		result = strtok(str,delims);
-		ip=atoi(result)*pow(256,3);
-		for(int i=2;i>=0;i--)
-		{
-			result = strtok( NULL, delims );
-			ip=ip+atoi(result)*pow(256,i);
-		}
-		mtx[num].ip=ip;
-		fgets(str,1024,fp);
-		result = strtok(str,delims2);
-		mac=strtol(result,NULL,16)*pow(256,5);
-		for(int i=4;i>=0;i--)
-		{
-			result = strtok( NULL, delims2);
-			mac=mac+strtol(result,NULL,16)*pow(256,i);
-		}
-		mtx[num].mac=mac;
-		// printf("mac : %d\n", mtx[num].mac);
-		num++;
-	}
-	fclose(fp);
+        if(fp != NULL){
+            while(fgets(str,1024,fp))
+            {
+                    char delims[] = ".";
+                    char delims2[] = ":";
+                    char *result = NULL;
+                    int ip=0;
+                    long mac=0;
+                    result = strtok(str,delims);
+                    ip=atoi(result)*pow(256,3);
+                    for(int i=2;i>=0;i--)
+                    {
+                            result = strtok( NULL, delims );
+                            ip=ip+atoi(result)*pow(256,i);
+                    }
+                    mtx[num].ip=ip;
+                    fgets(str,1024,fp);
+                    result = strtok(str,delims2);
+                    mac=strtol(result,NULL,16)*pow(256,5);
+                    for(int i=4;i>=0;i--)
+                    {
+                            result = strtok( NULL, delims2);
+                            mac=mac+strtol(result,NULL,16)*pow(256,i);
+                    }
+                    mtx[num].mac=mac;
+                    // printf("mac : %d\n", mtx[num].mac);
+                    num++;
+            }
+            fclose(fp);
+        }
 
 
 
